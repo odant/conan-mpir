@@ -26,7 +26,7 @@ class MpirConan(ConanFile):
     }
 
     _autotools = None
-    exports_sources = "src/*"
+    exports_sources = "src/*", "Findmpir.cmake"
 
     @property
     def _source_subfolder(self):
@@ -115,6 +115,7 @@ class MpirConan(ConanFile):
                 autotools.make()
 
     def package(self):
+        self.copy("Findmpir.cmake", src=".", dst=".")
         self.copy("COPYING*", dst="licenses", src=self._source_subfolder)
         if self.settings.compiler == "Visual Studio":
             lib_folder = os.path.join(self._source_subfolder, self._dll_or_lib,
