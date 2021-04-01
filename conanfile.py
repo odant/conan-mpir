@@ -36,6 +36,17 @@ class MpirConan(ConanFile):
         if self.settings.os == "Windows":
             del self.options.fPIC
 
+    def source(self):
+        if not tools.os_info.is_windows:
+            # Executable permisions on Unix
+            scripts = [
+                "src/configure", "src/compile", "src/config.guess", "src/config.sub", "src/configfsf.guess", "src/configfsf.sub",
+                "src/missing", "src/test-driver", "src/ylwrap", "src/strip_fPIC.sh", "src/install-sh", "src/mpn/x86/t-zdisp.sh",
+                "src/mpn/cpp-ccas", "src/mpn/m4-ccas"
+            ]
+            for script in scripts:
+                self.run("chmod a+x %s" % os.path.join(self.source_folder, script))
+
     def configure(self):
         if self.options.shared:
             del self.options.fPIC
