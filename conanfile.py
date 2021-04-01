@@ -21,7 +21,7 @@ class MpirConan(ConanFile):
     default_options = {
         "shared": True,
         "fPIC": True,
-        "enable_cxx": True,
+        "enable_cxx": False,
         "enable_gmpcompat": True
     }
 
