@@ -4,7 +4,7 @@ import glob
 
 class MpirConan(ConanFile):
     name = "mpir"
-    version = "3.0.0+2"
+    version = "3.0.0+3"
     description = "MPIR is a highly optimised library for bignum arithmetic" \
                   "forked from the GMP bignum library."
     topics = ("conan", "mpir", "multiprecision", "math", "mathematics")
