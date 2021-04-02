@@ -1,0 +1,18 @@
+--- a/src/gmp-h.in
++++ b/src/gmp-h.in
+@@ -160,8 +160,13 @@ along with the GNU MP Library.  If not, see http://www.gnu.org/licenses/.  */
+    make use of that.  Probably more trouble than it's worth.  */
+ 
+ #if defined (__GNUC__)
+-#define __GMP_DECLSPEC_EXPORT  __declspec(__dllexport__)
+-#define __GMP_DECLSPEC_IMPORT  __declspec(__dllimport__)
++#    if defined (_MSC_VER)
++#        define __GMP_DECLSPEC_EXPORT  __declspec(__dllexport__)
++#        define __GMP_DECLSPEC_IMPORT  __declspec(__dllimport__)
++#    else
++#        define __GMP_DECLSPEC_EXPORT  __attribute__((visibility("default")))
++#        define __GMP_DECLSPEC_IMPORT
++#    endif
+ #endif
+ #if defined (_MSC_VER) || defined (__BORLANDC__)
+ #define __GMP_DECLSPEC_EXPORT  __declspec(dllexport)

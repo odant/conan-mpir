@@ -26,7 +26,7 @@ class MpirConan(ConanFile):
     }
 
     _autotools = None
-    exports_sources = "src/*", "Findmpir.cmake"
+    exports_sources = "src/*", "Findmpir.cmake", "fix-__GMP_DECLSPEC.patch"
 
     @property
     def _source_subfolder(self):
@@ -118,6 +118,7 @@ class MpirConan(ConanFile):
         return self._autotools
 
     def build(self):
+        tools.patch(patch_file="fix-__GMP_DECLSPEC.patch")
         if self.settings.compiler == "Visual Studio":
             self._build_visual_studio()
         else:
