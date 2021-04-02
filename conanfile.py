@@ -152,12 +152,6 @@ class MpirConan(ConanFile):
                     os.unlink(filename)
 
     def package_info(self):
-        if self.options.get_safe("enable_cxx"):
-            self.cpp_info.libs.append("mpirxx")
-        self.cpp_info.libs.append("mpir")
-        if self.options.enable_gmpcompat and self.settings.compiler != "Visual Studio":
-            if self.options.get_safe("enable_cxx"):
-                self.cpp_info.libs.append("gmpxx")
-            self.cpp_info.libs.append("gmp")
+        self.cpp_info.libs = tools.collect_libs(self)
         if self.settings.os == "Windows" and self.options.shared:
             self.cpp_info.defines.append("MSC_USE_DLL")
